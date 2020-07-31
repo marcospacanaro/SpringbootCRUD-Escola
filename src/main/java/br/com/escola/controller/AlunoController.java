@@ -15,36 +15,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.escola.model.Turma;
-import br.com.escola.repository.TurmaRepository;
+import br.com.escola.model.Aluno;
+import br.com.escola.repository.AlunoRepository;
+
 
 @RestController
-@RequestMapping("/turma") //global//
+@RequestMapping("/aluno") //global//
 @CrossOrigin("*")
 
-public class TurmaController {
+public class AlunoController {
 
 	@Autowired
-	private TurmaRepository repository; 
+	private AlunoRepository repository; 
 	
 	@GetMapping
-	public ResponseEntity <List<Turma>> listarTurmas () { //findAll ()
+	public ResponseEntity <List<Aluno>> listarAlunos () { //findAll ()
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity <Turma> listarTurmaPorId (@PathVariable long id) { //findById ()
+	public ResponseEntity <Aluno> listarAlunoPorId (@PathVariable long id) { //findById ()
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 	
 	@PostMapping
-	public ResponseEntity<Turma> incluirTurma(@RequestBody Turma turma) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(turma));
+	public ResponseEntity<Aluno> incluirAluno(@RequestBody Aluno aluno) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(aluno));
 	}
 	
 	@PutMapping
-	public ResponseEntity<Turma> atualizarTurma(@RequestBody Turma turma) {
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(turma));
+	public ResponseEntity<Aluno> atualizarAluno(@RequestBody Aluno aluno) {
+		return ResponseEntity.status(HttpStatus.OK).body(repository.save(aluno));
 	}
 	
 	@DeleteMapping("/{id}")
